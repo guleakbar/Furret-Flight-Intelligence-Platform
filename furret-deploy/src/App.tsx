@@ -1,13 +1,12 @@
 import { useEffect, useState } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { motion, useScroll, useSpring } from 'framer-motion';
 import Navigation from './sections/Navigation';
-import Hero from './sections/Hero';
-import Features from './sections/Features';
-import Deals from './sections/Deals';
-import Analytics from './sections/Analytics';
-import Testimonials from './sections/Testimonials';
-import CTA from './sections/CTA';
 import Footer from './sections/Footer';
+import HomePage from './pages/HomePage';
+import DealsPage from './pages/DealsPage';
+import AnalyticsPage from './pages/AnalyticsPage';
+import FlightDetailPage from './pages/FlightDetailPage';
 
 function ScrollProgress() {
   const { scrollYProgress } = useScroll();
@@ -89,21 +88,21 @@ function App() {
   }
 
   return (
-    <div className="relative min-h-screen bg-dark-900 text-white overflow-x-hidden">
-      <ScrollProgress />
-      <Navigation />
-
-      <main>
-        <Hero />
-        <Features />
-        <Deals />
-        <Analytics />
-        <Testimonials />
-        <CTA />
-      </main>
-
-      <Footer />
-    </div>
+    <Router>
+      <div className="relative min-h-screen bg-dark-900 text-white overflow-x-hidden">
+        <ScrollProgress />
+        <Navigation />
+        <main>
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/deals" element={<DealsPage />} />
+            <Route path="/analytics" element={<AnalyticsPage />} />
+            <Route path="/flight/:id" element={<FlightDetailPage />} />
+          </Routes>
+        </main>
+        <Footer />
+      </div>
+    </Router>
   );
 }
 
